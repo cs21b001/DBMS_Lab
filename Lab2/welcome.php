@@ -18,15 +18,21 @@ if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
 
-    // You can add more fields as needed
+    // Check if the entry already exists
+    $check = "SELECT * FROM details WHERE name = '$name' AND email = '$email'";
+    $res = $conn->query($check);
 
-    // Insert data into the database
-    $sql = "INSERT INTO details (name, email) VALUES ('$name', '$email')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Record inserted successfully <br>";
+    if ($res->num_rows > 0) {
+        echo "Record already exists <br>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Insert data into the database
+        $sql = "INSERT INTO details (name, email) VALUES ('$name', '$email')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Record inserted successfully <br>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
 
@@ -47,7 +53,6 @@ if ($result->num_rows > 0) {
 }
 
 echo "</table>";
-
 
 // Close the database connection
 $conn->close();
