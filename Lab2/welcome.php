@@ -24,11 +24,30 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO details (name, email) VALUES ('$name', '$email')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Record inserted successfully";
+        echo "Record inserted successfully <br>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+
+// Retrieve and display data from the database
+$sql = "SELECT * FROM details";
+$result = $conn->query($sql);
+
+echo "<table border='1'>";
+echo "<tr><th>Name</th><th>Email</th></tr>";
+
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<tr><td>" . $row["name"] . "</td><td>" . $row["email"] . "</td></tr>";
+    }
+} else {
+    echo "<tr><td colspan='2'>No results</td></tr>";
+}
+
+echo "</table>";
+
 
 // Close the database connection
 $conn->close();
