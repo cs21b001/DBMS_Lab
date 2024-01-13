@@ -35,6 +35,24 @@ if (isset($_POST['delete'])) {
         echo "Such entry does not exist in the database <br>";
     }
 }
+// Retrieve and display data from the database
+$sql = "SELECT * FROM details";
+$result = $conn->query($sql);
+
+echo "<table border='1'>";
+echo "<tr><th>Name</th><th>Email</th></tr>";
+
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<tr><td>" . $row["name"] . "</td><td>" . $row["email"] . "</td></tr>";
+    }
+} else {
+    echo "<tr><td colspan='2'>No results</td></tr>";
+}
+
+echo "</table>";
+
 
 // Close the database connection
 $conn->close();
