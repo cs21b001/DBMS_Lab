@@ -18,5 +18,16 @@
 
         <button type="submit" name="submit">Submit</button>
     </form>
+    <!-- Delete form -->
+<form action="delete.php" method="post">
+    <label for="delete_name">Name to delete:</label>
+    <input type="text" name="delete_name" id="delete_name" required>
+
+    <label for="delete_email">Email to delete:</label>
+    <input type="email" name="delete_email" id="delete_email" required>
+
+    <button type="submit" name="delete">Delete</button>
+</form>
+
 </body>
 </html>
